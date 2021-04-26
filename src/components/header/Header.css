@@ -1,0 +1,13 @@
+#login-btn,
+#logout-btn,
+#register-btn {
+  background-color: var(--colorPrimary);
+  cursor: pointer;
+  border: none;
+}
+
+#login-btn:focus,
+#register-btn:focus,
+#logout-btn:focus {
+  outline: none;
+}
