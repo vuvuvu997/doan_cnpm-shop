@@ -1,1 +1,1 @@
-export const baseURL = "https://fakestoreapi.com";
+export const baseURL = "https://your-ecommerce.herokuapp.com";

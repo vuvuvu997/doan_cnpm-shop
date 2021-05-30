@@ -1,14 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function CategoryItem() {
+function CategoryItem(props) {
+  const { id, categoryName, categoryThumbnail } = props;
   return (
-    <div class="col l-1-2">
-      <a href="#1" class="category__title-item">
-        <div class="category__title-img">
-          <img src="/images/categorys/male-fashion.png" alt="Thời trang nam" />
+    <div className="col l-1-2">
+      <Link to={`/${id}/listProduct`} className="category__title-item">
+        <div className="category__title-img">
+          <img src={categoryThumbnail} alt={categoryName} />
         </div>
-        <p class="category__title-name">Thời trang nam</p>
-      </a>
+        <p className="category__title-name">{categoryName}</p>
+      </Link>
     </div>
   );
 }

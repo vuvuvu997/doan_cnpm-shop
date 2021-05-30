@@ -1,73 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { categoryAPI } from "../../api/categoryAPI";
 import CategoryItem from "../categoryItem";
 import "./category.css";
-
-function moveCategory(a) {
-  let category = document.querySelector(".category__container");
-  let btn_next_category = document.querySelector(".btn-moveCategory-next");
-  let btn_back_category = document.querySelector(".btn-moveCategory-pre");
-  if (a > 0) {
-    category.style.animation = "nextCategory 0.5s ease-in-out";
-    btn_back_category.style.display = "block";
-    btn_next_category.style.display = "none";
-  } else {
-    category.style.animation = "backCategory 0.5s ease";
-    btn_back_category.style.display = "none";
-    btn_next_category.style.display = "block";
+function showCategories(categories) {
+  let result = null;
+  if (categories.length > 0) {
+    result = categories.map((item) => {
+      return (
+        <CategoryItem
+          key={item.id}
+          id={item.id}
+          categoryName={item.name}
+          categoryThumbnail={item.link_image}
+        />
+      );
+    });
   }
+  return result;
 }
 
 function Category() {
-  useEffect(() => {
-    let btn_back_category = document.querySelector(".btn-moveCategory-pre");
-    btn_back_category.style.display = "none";
-  }, []);
+  const [categories, setCategories] = useState([]);
 
-  return (
-    <div class="category">
-      <h2 class="category__title">DANH MỤC</h2>
-      <div className="category__container">
-        <div class="row category__container--nowrap no-gutters">
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-        </div>
-        <div class="row category__container--nowrap no-gutters">
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-        </div>
-        <div class="group-btn-control-move">
-          <span
-            onClick={() => moveCategory(+1)}
-            class="btn-control-move btn-moveCategory-next"
-          >
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-          <span
-            onClick={() => moveCategory(-1)}
-            class="btn-control-move btn-moveCategory-pre"
-          >
-            <i class="fa fa-angle-left" aria-hidden="true"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+  useEffect(() => {
+    let fetchCategoriesAPI = async () => {
+      try {
+        const response = await categoryAPI.getAll();
+        setCategories(response.categories);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategoriesAPI();
+  }, []);
+  if (categories.length === 0)
+    return <p style={{ textAlign: "center", fontSize: "2rem" }}>Loading...</p>;
+  return <div className="row no-gutters">{showCategories(categories)}</div>;
 }
 
 export default Category;

@@ -1,0 +1,49 @@
+.user-address h2 {
+  margin-bottom: 16px;
+}
+
+.user-address__container {
+  background-color: #fff;
+  width: 100%;
+  padding: 24px;
+}
+
+.user-address__name span {
+  color: var(--colorPrimary);
+  font-size: 1.2rem;
+}
+
+.user-address__address span,
+.user-address__phone span {
+  color: #aaa;
+  font-size: 1.3rem;
+}
+
+.user-address__edit {
+  background-color: #fff;
+  padding: 16px;
+}
+
+.user-address input[type="checkbox"] {
+  display: none;
+}
+
+.user-address input[type="checkbox"]:checked + .user-address__edit {
+  display: block;
+}
+
+.label-checkbox {
+  margin-top: 20px;
+  cursor: pointer;
+  color: var(--colorPrimary);
+  font-weight: 500;
+}
+.user-address__edit {
+  display: none;
+}
+.user-address__edit button,
+.user-address__edit button:hover {
+  background-color: rgb(253, 216, 53);
+  color: #333;
+  width: 30%;
+}

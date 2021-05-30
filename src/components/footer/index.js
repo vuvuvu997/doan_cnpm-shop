@@ -3,7 +3,7 @@ import "./footer.css";
 
 function Footer() {
   return (
-    <footer class="footer">
+    <footer class="footer mt-50">
       <div class="footer__about">
         <div class="grid wide">
           <div class="row">

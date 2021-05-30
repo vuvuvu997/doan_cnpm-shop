@@ -11,7 +11,6 @@ a {
 }
 
 .header {
-  height: 12rem;
   background-image: linear-gradient(120deg, #006bd6, var(--colorPrimary));
   position: fixed;
   width: 100%;
@@ -25,6 +24,7 @@ a {
   height: 3.2rem;
   justify-content: space-between;
   align-items: center;
+  margin: 0 -12px;
 }
 
 .navbar__list,
@@ -203,7 +203,6 @@ a {
 }
 
 .header__bottom {
-  height: 88px;
   width: 100%;
 }
 
@@ -336,9 +335,11 @@ a {
 
 /* Gía sốc hôm nay */
 .price-suprice {
-  margin-bottom: 30px;
+  margin: 30px 0;
   overflow: hidden;
+  padding-bottom: 10px;
 }
+
 .price-suprice__header {
   font-size: 3rem;
   font-style: italic;
@@ -385,7 +386,7 @@ a {
     transform: translateX(-100%);
   }
   to {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
 }
 
@@ -440,12 +441,15 @@ a {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   margin-top: 8px;
   position: relative;
+  height: 340px;
 }
 
 .productItem__img {
-  max-height: 220px;
+  height: 180px;
   overflow: hidden;
+  background-origin: content-box;
   position: relative;
+  padding: 10px;
 }
 
 .productItem__img > div {
@@ -464,7 +468,7 @@ a {
 
 .productItem:hover .productItem__img > img {
   transform: scale(1.2);
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
 .productItem:hover .productItem__img > div {
@@ -483,16 +487,23 @@ a {
 
 .productItem__img > img {
   width: 100%;
+  height: 100%;
 }
 
 .productItem__content {
   padding: 8px;
 }
+.productItem__rating {
+  margin: 0;
+  font-size: 1.5rem;
+  color: rgb(253, 253, 39);
+}
 
 .productItem__description {
+  margin: 0;
   color: var(--colorText);
   font-size: 1.4rem;
-  margin-bottom: 26px;
+  margin-bottom: 10px;
 }
 
 .productItem__bottom {
@@ -501,8 +512,10 @@ a {
 }
 
 .productItem__bottom-price {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  font-weight: 500;
   color: var(--colorPrimary);
+  padding-right: 5px;
 }
 
 .productItem__bottom-quantity {
@@ -529,7 +542,7 @@ a {
   border-right: 20px solid #fcd435;
   border-bottom: 7px solid transparent;
   position: absolute;
-  top: 35px;
+  top: 42px;
   right: 0;
 }
 
@@ -541,18 +554,22 @@ a {
   color: #fff;
 }
 
+.container-btn-add-product {
+  margin-top: 20px;
+  padding: 0 40%;
+}
 /* css login-register */
 .container-dialog {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
-  padding-top: 50px;
+  padding: 48px 0;
   z-index: 1000;
   animation: changeBackground ease 0.3s;
+  overflow-y: auto;
 }
 
 @keyframes changeBackground {

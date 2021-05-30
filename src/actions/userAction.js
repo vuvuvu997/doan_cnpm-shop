@@ -20,9 +20,9 @@ export const userRegister = (data) => {
   };
 };
 
-export const getUser = (data) => {
+export const getProfileUser = (data) => {
   return {
-    type: actionTypes.GET_USER,
-    payload: data,
+    type: actionTypes.GET_PROFILE_USER,
+    payload: { data },
   };
 };

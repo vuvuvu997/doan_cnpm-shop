@@ -1,0 +1,40 @@
+.review__item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgb(191, 191, 191);
+}
+.review__item__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: right;
+  overflow: hidden;
+}
+.review__item__img > img {
+  width: 100%;
+  background-size: contain;
+}
+
+.review__item__content p {
+  margin: 0;
+}
+
+.review__item__name {
+  font-weight: bold;
+}
+
+.review__item__rating {
+  color: var(--colorPrimary);
+}
+
+.review__item__content__img {
+  height: 100px;
+}
+
+.review__item__content__img > img {
+  height: 100%;
+}
+
+.review__item__time {
+  font-size: 1.4rem;
+  color: rgb(119, 119, 119);
+}

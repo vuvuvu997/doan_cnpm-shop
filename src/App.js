@@ -1,28 +1,48 @@
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import routers from "./routers";
-import React from "react";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
 import { ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { userLogin } from "./actions/userAction";
+import { userLogin, getProfileUser } from "./actions/userAction";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import RegisterPage from "./pages/Register";
+import LoginPage from "./pages/Login";
+import routers from "./routers";
 
 function App() {
+  const popupForm = useSelector((state) => state.popupForm);
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  if (token) {
-    dispatch(userLogin({ username: "Nguyen Dang Sang" }));
-  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("authentication_token");
+    if (token) {
+      const inforUserFetch = async () => {
+        const myConfig = {
+          headers: { Authorization: token },
+        };
+        try {
+          const response = await axios.get(
+            "https://your-ecommerce.herokuapp.com/profile",
+            myConfig
+          );
+          dispatch(getProfileUser(response.data));
+          dispatch(userLogin({ username: response.data.email }));
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      inforUserFetch();
+    }
+  }, [dispatch]);
 
   return (
     <Router>
       <Header />
       <Switch>{showRouter(routers)}</Switch>
       <Footer />
-      <LoginPage />
-      <RegisterPage />
+      {popupForm.isPopupLogin && <LoginPage />}
+      {popupForm.isPopupRes && <RegisterPage />}
       <ToastContainer />
     </Router>
   );

@@ -4,17 +4,57 @@ import { Link, useHistory } from "react-router-dom";
 import { userLogout } from "../../actions/userAction";
 import FormSearch from "../FormSearch";
 import Notification from "../Notification";
+import * as actionsPopupForm from "./../../actions/popup-form";
 import "./Header.css";
 
+function showMiniCart(list) {
+  let result = null;
+  if (list.length > 0) {
+    result = list.map((item) => {
+      return (
+        <div className="header--bottom-has-cart__item">
+          <div className="header--bottom-has-cart__item__img">
+            <img src={item.link_image} alt={item.name} />
+          </div>
+          <p className="header--bottom-has-cart__item__name">{item.name}</p>
+          <p className="header--bottom-has-cart__item__price">
+            <sup>đ </sup>
+            {item.price}
+          </p>
+        </div>
+      );
+    });
+  }
+  return result;
+}
+
 function Header() {
-  const userLogin = useSelector((state) => state.userLogin);
+  const isLogin = useSelector((state) => state.userLogin);
+  const listCart = useSelector((state) => state.cart);
+  //console.log(listCart);
+  const amountCartItem = listCart.length;
+
   const dispatch = useDispatch();
   const history = useHistory();
-  // const [isPopupRes, setIsPopupRes] = useState(false);
   function handleLogout() {
     dispatch(userLogout());
-    localStorage.removeItem("token");
+    localStorage.removeItem("authentication_token");
     history.push("/");
+  }
+
+  function showFormRegister() {
+    dispatch(actionsPopupForm.popupRegister(true));
+  }
+  function showFormLogin() {
+    dispatch(actionsPopupForm.popupLogin(true));
+  }
+
+  function handleRedirectToCartPage() {
+    if (!isLogin.infoUser.username) {
+      dispatch(actionsPopupForm.popupLogin(true));
+    } else {
+      history.push("/cart/1");
+    }
   }
 
   return (
@@ -73,24 +113,22 @@ function Header() {
                   Trợ giúp
                 </a>
               </li>
-              {!userLogin.infoUser.username ? (
+              {!isLogin.infoUser.username ? (
                 <div>
                   <li className="navbar__list-item navbar__list-item--separated">
                     <button
                       id="register-btn"
-                      onClick={() => showForm("register-btn")}
+                      onClick={() => showFormRegister()}
                       className="navbar__link navbar__link--bold"
                     >
                       Đăng ký
                     </button>
-                    {/* {isPopupLogin && <RegisterPage />} */}
                   </li>
                   <li className="navbar__list-item ">
                     <button
                       id="login-btn"
                       className="navbar__link navbar__link--bold"
-                      onClick={() => showForm("login-btn")}
-                      //onClick={() => <LoginPage />}
+                      onClick={() => showFormLogin()}
                     >
                       Đăng nhập
                     </button>
@@ -99,8 +137,11 @@ function Header() {
               ) : (
                 <div>
                   <li className="navbar__list-item navbar__list-item--separated">
-                    <Link className="navbar__link navbar__link--bold">
-                      {userLogin.infoUser.username}
+                    <Link
+                      to="/user/account/edit"
+                      className="navbar__link navbar__link--bold"
+                    >
+                      {isLogin.infoUser.username}
                     </Link>
                   </li>
                   <li className="navbar__list-item ">
@@ -203,20 +244,44 @@ function Header() {
             </div>
             <div className="col l-2">
               <div className="hearder__bottom-cart">
-                <a className="hearder__bottom-cart-link" href="#1">
+                <span className="header__bottom-cart__quantity">
+                  {!isLogin.infoUser.username ? "0" : amountCartItem}
+                </span>
+                <button
+                  onClick={handleRedirectToCartPage}
+                  className="btn--cart hearder__bottom-cart-link"
+                  href="#1"
+                >
                   <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-                </a>
+                </button>
                 <div className="header__bottom-show-cart">
-                  <div className="header__bottom-no-cart">
-                    <img
-                      className="header__bottom-no-cart-img"
-                      src="/images/no-product.png"
-                      alt="No product"
-                    />
-                    <p className="header__bottom-no-cart-notify">
-                      Chưa có sản phẩm
-                    </p>
-                  </div>
+                  {!isLogin.infoUser.username ? (
+                    <div className="header__bottom-no-cart">
+                      <img
+                        className="header__bottom-no-cart-img"
+                        src="/images/no-product.png"
+                        alt="No product"
+                      />
+                      <p className="header__bottom-no-cart-notify">
+                        Chưa có sản phẩm
+                      </p>
+                    </div>
+                  ) : amountCartItem > 0 ? (
+                    <div className="header__bottom-has-cart">
+                      {showMiniCart(listCart)}
+                    </div>
+                  ) : (
+                    <div className="header__bottom-no-cart">
+                      <img
+                        className="header__bottom-no-cart-img"
+                        src="/images/no-product.png"
+                        alt="No product"
+                      />
+                      <p className="header__bottom-no-cart-notify">
+                        Chưa có sản phẩm
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -227,35 +292,35 @@ function Header() {
   );
 }
 
-function showForm(id) {
-  if (id === "register-btn") {
-    const eleForm = document.getElementById("register-page");
-    eleForm.style.display = "block";
-  }
-  if (id === "login-btn") {
-    const eleForm = document.getElementById("login-page");
-    eleForm.style.display = "block";
-  }
-  const container =
-    id === "login-btn"
-      ? document.getElementById("login-page")
-      : document.getElementById("register-page");
+// function showForm(id) {
+//   if (id === "register-btn") {
+//     const eleForm = document.getElementById("register-page");
+//     eleForm.style.display = "block";
+//   }
+//   if (id === "login-btn") {
+//     const eleForm = document.getElementById("login-page");
+//     eleForm.style.display = "block";
+//   }
+//   const container =
+//     id === "login-btn"
+//       ? document.getElementById("login-page")
+//       : document.getElementById("register-page");
 
-  container.addEventListener("click", function (e) {
-    if (
-      document.getElementById("register-dialog").contains(e.target) ||
-      document.getElementById("login-dialog").contains(e.target)
-    ) {
-      // Clicked in box
-    } else {
-      //Clicked outside the box
-      const eleForm =
-        id === "login-btn"
-          ? document.getElementById("login-page")
-          : document.getElementById("register-page");
-      eleForm.style.display = "none";
-    }
-  });
-}
+//   container.addEventListener("click", function (e) {
+//     if (
+//       document.getElementById("register-dialog").contains(e.target) ||
+//       document.getElementById("login-dialog").contains(e.target)
+//     ) {
+//       // Clicked in box
+//     } else {
+//       //Clicked outside the box
+//       const eleForm =
+//         id === "login-btn"
+//           ? document.getElementById("login-page")
+//           : document.getElementById("register-page");
+//       eleForm.style.display = "none";
+//     }
+//   });
+// }
 
 export default Header;

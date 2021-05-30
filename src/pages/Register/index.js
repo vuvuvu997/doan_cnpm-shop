@@ -1,131 +1,107 @@
+import axios from "axios";
 import React from "react";
-import { useSelector } from "react-redux";
-import FormLogin from "../../components/FormLogin";
-import FormRegister from "../../components/FormRegister";
+import { useDispatch } from "react-redux";
+import { userLogin, userRegister } from "../../actions/userAction";
+import * as actionsPopupForm from "./../../actions/popup-form";
+//import FormRegister from "../../components/FormRegister";
+import FormRegister from "./../../components/register-formik";
 
 function RegisterPage(props) {
-  const userRegister = useSelector((state) => state.userRegister);
-  const userLogin = useSelector((state) => state.userLogin);
+  //const isUserRegister = useSelector((state) => state.userRegister);
+  const dispatch = useDispatch();
 
-  const registerForm = userRegister.isRegister ? (
-    userLogin.isLogin ? (
-      ""
-    ) : (
-      <div class="container-dialog" id="login-page">
-        <div class="content-dialog" id="login-dialog">
-          <div class="row">
-            <div class="col l-7">
-              <div class="content-form">
-                <h2 class="content-form__title">Xin chào,</h2>
-                <p class="content-form__title-content">Đăng nhập tài khoản</p>
-                <FormLogin />
-                <a class="content-form-link-email" href="#1">
-                  Đăng nhập bằng email
-                </a>
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  };
 
-                <div class="content-form__separate">
-                  <span>Hoặc tiếp tục bằng</span>
-                </div>
-                <div class="content-form__social">
-                  <a href="#1">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                  <a href="#1">
-                    <i class="fa fa-google" aria-hidden="true"></i>
-                  </a>
-                  <a href="#1">
-                    <img src="/images/icon-zalo.png" alt="" />
-                  </a>
-                </div>
-                <p class="content-form__combine">
-                  Bằng việc tiếp tục, bạn đã chấp nhận{" "}
-                  <a href="http://">điều khoản sử dụng</a>
-                </p>
-              </div>
-            </div>
-            <div class="col l-5">
-              <div class="content-right">
-                <img
-                  class="content-right__image"
-                  src="/images/image-login-tiki.png"
-                  alt=""
-                />
-                <div class="content-right__sologan">
-                  <h3>Mua sắm tại Tiki</h3>
-                  <p>Siêu ưu đãi mỗi ngày</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button
-            class="exit-dialog"
-            onClick={() => {
-              handelExitButton();
-            }}
-          >
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-    )
-  ) : (
-    <div class="container-dialog" id="register-page">
-      <div class="content-dialog" id="register-dialog">
-        <div class="row">
-          <div class="col l-7">
-            <div class="content-form">
-              <h2 class="content-form__title">Xin chào,</h2>
-              <p class="content-form__title-content">Đăng Ký tài khoản</p>
-              <FormRegister />
-              <a class="content-form-link-email" href="#1">
+  const handleSubmit = async (value) => {
+    const data = {
+      username: value.name,
+      email: value.email,
+      password: value.password,
+      password_confirmation: value.passwordConfirm,
+    };
+    try {
+      const response = await axios.post(
+        "https://your-ecommerce.herokuapp.com/users/signup",
+        data
+      );
+      if (response.status === 201) {
+        dispatch(userRegister({ isRegister: true }));
+        const authentication_token = response.data.authentication_token;
+        const name = response.data.email;
+        localStorage.setItem("authentication_token", authentication_token);
+        dispatch(userLogin({ username: name }));
+      }
+    } catch (error) {
+      dispatch(userRegister({ isRegister: false }));
+      console.log(error);
+    }
+    dispatch(actionsPopupForm.popupRegister(false));
+  };
+
+  const handelExitButton = () => {
+    dispatch(actionsPopupForm.popupRegister(false));
+  };
+
+  return (
+    <div className="container-dialog" id="register-page">
+      <div className="content-dialog" id="register-dialog">
+        <div className="row">
+          <div className="col l-7">
+            <div className="content-form">
+              <h2 className="content-form__title">Xin chào,</h2>
+              <p className="content-form__title-content">Đăng Ký tài khoản</p>
+              <FormRegister
+                initialValues={initialValues}
+                onSubmit={handleSubmit}
+              />
+              <a className="content-form-link-email" href="#1">
                 Đăng nhập bằng email
               </a>
-              <div class="content-form__separate">
+              <div className="content-form__separate">
                 <span>Hoặc tiếp tục bằng</span>
               </div>
-              <div class="content-form__social">
+              <div className="content-form__social">
                 <a href="#1">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                  <i className="fa fa-facebook" aria-hidden="true"></i>
                 </a>
                 <a href="#1">
-                  <i class="fa fa-google" aria-hidden="true"></i>
+                  <i className="fa fa-google" aria-hidden="true"></i>
                 </a>
                 <a href="#1">
                   <img src="/images/icon-zalo.png" alt="" />
                 </a>
               </div>
-              <p class="content-form__combine">
+              <p className="content-form__combine">
                 Bằng việc tiếp tục, bạn đã chấp nhận{" "}
                 <a href="http://">điều khoản sử dụng</a>
               </p>
             </div>
           </div>
-          <div class="col l-5">
-            <div class="content-right">
+          <div className="col l-5">
+            <div className="content-right">
               <img
                 className="content-right__image"
                 src="/images/image-login-tiki.png"
                 alt="login img"
               />
-              <div class="content-right__sologan">
+              <div className="content-right__sologan">
                 <h3>Mua sắm tại Tiki</h3>
                 <p>Siêu ưu đãi mỗi ngày</p>
               </div>
             </div>
           </div>
         </div>
-        <button class="exit-dialog" onClick={() => handelExitButton()}>
-          <i class="fa fa-times" aria-hidden="true"></i>
+        <button className="exit-dialog" onClick={() => handelExitButton()}>
+          <i className="fa fa-times" aria-hidden="true"></i>
         </button>
       </div>
     </div>
   );
-
-  return registerForm;
-}
-function handelExitButton() {
-  const eleForm = document.getElementById("register-page");
-  eleForm.style.display = "none";
 }
 
 export default RegisterPage;

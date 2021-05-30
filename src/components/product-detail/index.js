@@ -1,141 +1,240 @@
 import "./product-detail.css";
+import * as cartAction from "./../../actions/cartAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useHistory } from "react-router";
+import * as actionsForm from "./../../actions/popup-form";
+import axiosClient from "../../api/axiosClient";
+import * as toastMessage from "./../../helpers/toastMessage";
 
-function ProductDetail() {
+function showRating(value) {
+  let result = [];
+  for (let i = 0; i < value; i++) {
+    result.push(<i className="fa fa-star" aria-hidden="true"></i>);
+  }
+  for (let i = value; i < 5; i++) {
+    result.push(<i className="fa fa-star-o" aria-hidden="true"></i>);
+  }
+  return result;
+}
+
+function ProductDetail(props) {
+  const isLogin = useSelector((state) => state.userLogin);
+  const userId = isLogin.infoUser.username;
+  const { id, rating, name, price, description, link_image } =
+    props.dataProduct;
+
+  const token = localStorage.getItem("authentication_token");
+  const myConfig = {
+    headers: { Authorization: token },
+  };
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddProductToCart = async (value) => {
+    if (!userId) {
+      return dispatch(actionsForm.popupLogin(true));
+    }
+    if (token) {
+      await axiosClient.post(
+        "https://your-ecommerce.herokuapp.com/carts",
+        { product_id: id, count: quantity },
+        myConfig
+      );
+    }
+    if (value) {
+      history.push(`/cart/${userId}`);
+      dispatch(
+        cartAction.addProductToCart({
+          id,
+          rating,
+          name,
+          price,
+          count: quantity,
+          description,
+          link_image,
+          isBought: true,
+        })
+      );
+    } else {
+      toastMessage.toastSucces("Add product to cart success");
+      dispatch(
+        cartAction.addProductToCart({
+          id,
+          rating,
+          name,
+          price,
+          description,
+          count: quantity,
+          link_image,
+          isBought: false,
+        })
+      );
+    }
+  };
+
+  const handleChangQuantity = (value) => {
+    setQuantity(quantity + value);
+  };
+
   return (
-    <div class="container container--product">
-      <div class="grid wide">
-        <div class="product">
-          <div class="row">
-            <div class="col l-4">
-              <div class="poduct__img">
-                <img src="/images/products/product.jfif" alt="" />
+    <div className=" container--product">
+      <div className="grid wide">
+        <div className="product">
+          <div className="row">
+            <div className="col l-4">
+              <div className="poduct__img">
+                <img src={link_image} alt={name} />
               </div>
             </div>
-            <div class="col l-8">
-              <div class="product__info">
-                <div class="product__info__header">
-                  <div class="product__info__header__left">
+            <div className="col l-8">
+              <div className="product__info">
+                <div className="product__info__header">
+                  <div className="product__info__header__left">
                     <p>
-                      Thương hiệu: <span>Samsung</span>
+                      Danh mục: <span>category name</span>
                     </p>
-                    <h2>
-                      Smart Tivi QLED Samsung 4K 65 inch QA65Q60A Mới 2021
-                    </h2>
-                    <div class="product__info__rating">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
+                    <h2>{name}</h2>
+                    <div className="product__info__rating">
+                      {showRating(rating)}
                     </div>
                   </div>
-                  <div class="product__info__header__right">
+                  <div className="product__info__header__right">
                     <span>
-                      <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      <i className="fa fa-heart-o" aria-hidden="true"></i>
                     </span>
                   </div>
                 </div>
-                <div class="product__info__body">
-                  <div class="row">
-                    <div class="con l-8">
-                      <div class="product__info__price">
+                <div className="product__info__body">
+                  <div className="row">
+                    <div className="con l-8">
+                      <div className="product__info__price">
                         <p>
-                          <span class="product__info__price--discount">
-                            86.492 ₫
+                          <span className="product__info__price--discount">
+                            {price - (price * 50) / 100} ₫
                           </span>
-                          <span class="product__info__price--original">
-                            170.000 ₫
+                          <span className="product__info__price--original">
+                            {price} ₫
                           </span>
-                          <span class="product__info__discount">-49%</span>
+                          <span className="product__info__discount">
+                            -{50}%
+                          </span>
                         </p>
                         <a href="http://">
                           Hoàn tiền 15% tối đa 600k/tháng
                           <i
-                            class="fa fa-question-circle"
+                            className="fa fa-question-circle"
                             aria-hidden="true"
                           ></i>
                         </a>
                       </div>
-                      <div class="product__info__vourcher">
+                      <div className="product__info__vourcher">
                         <h3>1 Mã giảm giá</h3>
-                        <span class="product__info__vourcher__tag">
+                        <span className="product__info__vourcher__tag">
                           Giảm 5%
                         </span>
                       </div>
-                      <p class="product__info__link">
+                      <p className="product__info__link">
                         Bạn hãy{" "}
-                        <a class="product__info__link-address" href="http://">
+                        <a
+                          className="product__info__link-address"
+                          href="http://"
+                        >
                           NHẬP ĐỊA CHỈ
                         </a>{" "}
                         nhận hàng để được dự báo thời gian & chi phí giao hàng
                         một cách chính xác nhất.
                       </p>
-                      <div class="product__info__group-amout">
+                      <div className="product__info__group-amout">
                         <p>Số lượng</p>
-                        <div class="checkout__item__action">
+                        <div className="checkout__item__action">
                           <button
-                            disabled
+                            disabled={quantity === 1 ? true : false}
                             type="button"
-                            class="checkout__item__action__btn-increase btn-disible"
+                            className={
+                              quantity === 1
+                                ? "btn-disible checkout__item__action__btn-increase"
+                                : "checkout__item__action__btn-increase"
+                            }
+                            onClick={() => handleChangQuantity(-1)}
                           >
                             -
                           </button>
-                          <span class="checkout__item__action__display">1</span>
-                          <button class="checkout__item__action__btn-decrease">
+                          <span className="checkout__item__action__display">
+                            {quantity}
+                          </span>
+                          <button
+                            className="checkout__item__action__btn-decrease"
+                            onClick={() => handleChangQuantity(+1)}
+                          >
                             +
                           </button>
                         </div>
                       </div>
 
-                      <div class="product__info__group-actions">
-                        <button class="btn btn-add-product">Chọn mua</button>
-                        <button class="btn btn-pay-later">
-                          Trả góp qua thẻ tín dụng<br></br>
-                          <span>Chỉ từ 800k/tháng</span>
+                      <div className="product__info__group-actions">
+                        <button
+                          className="btn btn-add-product"
+                          onClick={() => handleAddProductToCart(true)}
+                        >
+                          Mua ngay
+                        </button>
+                        <button
+                          className="btn btn-pay-later"
+                          onClick={() => handleAddProductToCart(false)}
+                        >
+                          Thêm vào giỏ hàng
                         </button>
                       </div>
                     </div>
-                    <div class="col l-4">
-                      <div class="shop-extend">
-                        <div class="shop-extend__name">
-                          <span class="shop-extend__name__img">
-                            <img src="/images/products/product.jfif" alt="" />
+                    <div className="col l-4">
+                      <div className="shop-extend">
+                        <div className="shop-extend__name">
+                          <span className="shop-extend__name__img">
+                            <img src={"..."} alt={"shopName"} />
                           </span>
-                          <span class="shop-extend__name__tag">
-                            Tech Digital
+                          <span className="shop-extend__name__tag">
+                            {"shopName"}
                           </span>
                         </div>
-                        <div class="row">
-                          <div class="col l-6">
-                            <div class="shop-extend__container">
-                              <p class="shop-extend__container__description">
+                        <div className="row">
+                          <div className="col l-6">
+                            <div className="shop-extend__container">
+                              <p className="shop-extend__container__description">
                                 <span>4.3</span>/<span>5.0</span>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                              </p>
-                              <p>299</p>
-                              <button class="btn shop-extend__btn">
                                 <i
-                                  class="fa fa-shopping-basket"
+                                  className="fa fa-star"
+                                  aria-hidden="true"
+                                ></i>
+                              </p>
+                              <p>{"soldQuantity"}</p>
+                              <button className="btn shop-extend__btn">
+                                <i
+                                  className="fa fa-shopping-basket"
                                   aria-hidden="true"
                                 ></i>
                                 Xem Shop
                               </button>
                             </div>
                           </div>
-                          <div class="col l-6">
-                            <div class="shop-extend__container">
-                              <p class="shop-extend__container__description">
+                          <div className="col l-6">
+                            <div className="shop-extend__container">
+                              <p className="shop-extend__container__description">
                                 <span>73</span>
                               </p>
                               <p>Theo dõi</p>
-                              <button class="btn shop-extend__btn">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                              <button className="btn shop-extend__btn">
+                                <i
+                                  className="fa fa-plus"
+                                  aria-hidden="true"
+                                ></i>
                                 Theo dõi
                               </button>
                             </div>
                           </div>
                         </div>
-                        <p class="shop-extend__add-border-top ">
+                        <p className="shop-extend__add-border-top ">
                           <span>Thời gian bảo hành</span>
                           <span>12 Tháng</span>
                         </p>
@@ -151,30 +250,36 @@ function ProductDetail() {
                           <span>Hướng dẫn bảo hành</span>
                           <a href="http://">Xem chi tiết</a>
                         </p>
-                        <div class="row no-gutters">
-                          <div class="col l-4 ">
-                            <div class="shop-extend__policy">
+                        <div className="row no-gutters">
+                          <div className="col l-4 ">
+                            <div className="shop-extend__policy">
                               <p>
-                                <i class="fa fa-shield" aria-hidden="true"></i>
+                                <i
+                                  className="fa fa-shield"
+                                  aria-hidden="true"
+                                ></i>
                               </p>
                               <p>Hoàn tiền 111% nếu giả</p>
                             </div>
                           </div>
-                          <div class="col l-4">
-                            <div class="shop-extend__policy">
+                          <div className="col l-4">
+                            <div className="shop-extend__policy">
                               <p>
                                 <i
-                                  class="fa fa-check-square"
+                                  className="fa fa-check-square"
                                   aria-hidden="true"
                                 ></i>
                               </p>
                               <p>Mở hộp kiểm tra nhận hàng</p>
                             </div>
                           </div>
-                          <div class="col l-4">
-                            <div class="shop-extend__policy">
+                          <div className="col l-4">
+                            <div className="shop-extend__policy">
                               <p>
-                                <i class="fa fa-undo" aria-hidden="true"></i>
+                                <i
+                                  className="fa fa-undo"
+                                  aria-hidden="true"
+                                ></i>
                               </p>
                               <p>Đổi trả trong 30 ngày nếu sp lỗ</p>
                             </div>
