@@ -1,0 +1,101 @@
+.header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 10;
+
+  height: 60px;
+  padding: 8px 12px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  &__left {
+    span:first-child {
+      font-size: 1.6rem;
+      color: var(--colorPrimary);
+      font-weight: bold;
+      margin-right: 12px;
+    }
+    span:nth-child(2) {
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+  }
+  &__right {
+    min-width: 160px;
+    &__author {
+      padding: 4px 8px;
+      border-radius: 22px;
+      cursor: pointer;
+      position: relative;
+      &::before {
+        content: " ";
+        height: 12px;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        background-color: transparent;
+      }
+      &:hover .header__right__author__control {
+        display: block;
+        opacity: 1;
+      }
+      &__img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      &:hover {
+        background-color: rgb(228, 228, 228);
+      }
+      &__name {
+        padding: 0 12px;
+      }
+      &__control {
+        display: none;
+        position: absolute;
+        top: 120%;
+        left: 0;
+        background-color: #fff;
+        padding: 4px;
+        width: 100%;
+        border-radius: 4px;
+        box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+        &::before {
+          content: "";
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-bottom: 8px solid #fff;
+          position: absolute;
+          top: -8%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        a,
+        span {
+          display: block;
+          color: #333;
+          text-align: left;
+          font-size: 1.3em;
+          padding: 6px 0 6px 12px;
+          &:hover {
+            background-color: #e4e4e4;
+          }
+
+          i {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+    &__no-author {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

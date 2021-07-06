@@ -1,0 +1,53 @@
+.profile-shop-page {
+  height: 100%;
+  &__header {
+    border-bottom: 1px solid silver;
+  }
+  h1 {
+    margin-bottom: 12px;
+  }
+  &__desc {
+    color: silver;
+    font-size: 1.5rem;
+  }
+  &__link {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--colorPrimary);
+    width: 12%;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--colorPrimary);
+    margin-bottom: 0;
+  }
+  &__form {
+    padding: 12px;
+    border: 1px solid silver;
+    margin-top: 12px;
+    border-radius: 4px;
+    .create-shop-form {
+      background-color: #f6f6f6;
+    }
+  }
+  &__bg {
+    ul,
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      padding-top: 12px;
+      padding-bottom: 6px;
+      font-size: 1.4rem;
+      border-bottom: 1px solid silver;
+      i {
+        color: var(--colorPrimary);
+        margin-right: 4px;
+      }
+      span {
+        float: right;
+        color: red;
+      }
+    }
+  }
+}

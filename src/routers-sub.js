@@ -1,37 +1,52 @@
-import UserNotification from "./components/user-notification";
-import UserOrderHistory from "./components/user-order-history";
-import UserProfile from "./components/user-profile-edit";
-import UserAddress from "./components/user-address";
-
-const routersSub = [
+import AddProductPage from "./pages/add-product";
+import Introduce from "./pages/introduce";
+import ListProductPage from "./pages/list-product";
+import Order from "./pages/order";
+import ProfileShop from "./pages/profile-shop";
+import Review from "./pages/reviews";
+const routes = [
   {
-    path: "/user/account/edit",
-    exact: false,
+    path: "/",
+    exact: true,
     main: () => {
-      return <UserProfile />;
+      return <Introduce />;
     },
   },
   {
-    path: "/user/notification",
+    path: "/portal/sale/order",
     exact: false,
     main: () => {
-      return <UserNotification />;
+      return <Order />;
     },
   },
   {
-    path: "/user/order/history",
+    path: "/portal/product/list/all",
     exact: false,
     main: () => {
-      return <UserOrderHistory />;
+      return <ListProductPage />;
     },
   },
   {
-    path: "/user/address",
+    path: "/portal/product/add",
     exact: false,
     main: () => {
-      return <UserAddress />;
+      return <AddProductPage />;
+    },
+  },
+  {
+    path: "/portal/settings/shop/profile",
+    exact: false,
+    main: () => {
+      return <ProfileShop />;
+    },
+  },
+  {
+    path: "/portal/settings/shop/rating",
+    exact: false,
+    main: () => {
+      return <Review />;
     },
   },
 ];
 
-export default routersSub;
+export default routes;

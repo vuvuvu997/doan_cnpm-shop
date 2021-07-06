@@ -1,0 +1,12 @@
+.create-shop-page {
+  height: 100%;
+  padding-bottom: 50px;
+  &__left {
+    padding-right: 24px;
+  }
+  &__right {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 24px;
+  }
+}

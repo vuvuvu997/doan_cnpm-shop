@@ -8,11 +8,9 @@ import storeConfigure from "./redux/storeConfigure";
 
 const store = storeConfigure();
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
 

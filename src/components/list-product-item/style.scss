@@ -1,0 +1,53 @@
+.product-item {
+  &__modal-dialog {
+    .modal-dialog {
+      max-width: 800px;
+    }
+  }
+  &__img {
+    img {
+      width: 100px;
+      height: 60px;
+    }
+  }
+  td {
+    vertical-align: middle;
+  }
+  .add-product-form {
+    padding: 12px;
+  }
+  .modal-dialog {
+    width: 70%;
+  }
+  .btn--edit,
+  .btn--delete {
+    padding: 4px;
+    display: inline-block;
+    width: 40%;
+  }
+  .btn--delete {
+    color: red;
+    background-color: transparent;
+  }
+  .btn--delete:hover {
+    color: red;
+    border-bottom: 2px solid red;
+  }
+  .btn--delete:focus {
+    border: 1px solid red;
+    outline: none;
+  }
+  .btn--edit {
+    background-color: transparent;
+    color: var(--colorPrimary);
+  }
+  .btn--edit:hover {
+    background-color: transparent;
+    color: var(--colorPrimary);
+    border-bottom: 2px solid var(--colorPrimary);
+  }
+  .modal-footer--delete {
+    width: 40%;
+    margin-left: auto;
+  }
+}

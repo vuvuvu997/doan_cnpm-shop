@@ -1,0 +1,29 @@
+.add-product-form {
+  background-color: #fff;
+  padding: 12px 48px 12px 96px;
+  .form-group-container {
+    width: 80%;
+  }
+}
+
+.style-form {
+  .form-group {
+    input,
+    select {
+      height: 40px !important;
+      font-size: 1.5rem;
+    }
+    textarea {
+      font-size: 1.5rem;
+    }
+
+    button {
+      width: 30%;
+    }
+    input,
+    select {
+      border: none;
+      border-bottom: 1px solid silver;
+    }
+  }
+}

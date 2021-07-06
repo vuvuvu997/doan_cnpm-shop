@@ -1,41 +1,23 @@
 import React from "react";
-import Category from "../../components/categorys";
-import ProductList from "../../components/productsList";
-import ProductDiscountList from "./../../components/productDiscoutList";
-import SlideBar from "./../../components/slideBar";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import Menu from "../../components/menu";
+import routersSub from "./../../routers-sub";
+import "./home.scss";
 
-function HomePage(props) {
+function Home(props) {
   return (
-    <div>
-      <div className="slide-bar">
-        <div className="grid wide">
-          <div className="row">
-            <div className="col l-8">
-              <SlideBar />
-            </div>
-            <div className="col l-4">
-              <div className="slide-bar__more">
-                <div className="row">
-                  <div className="col l-12">
-                    <div
-                      className="slide-bar__detail"
-                      style={{ paddingBottom: "8px" }}
-                    >
-                      <img
-                        src="/images/slidebar/slide-detail1.jfif"
-                        alt=""
-                        className="slide-bar__detail-img"
-                      />
-                    </div>
-                  </div>
-                  <div className="col l-12">
-                    <div className="slide-bar__detail">
-                      <img
-                        src="/images/slidebar/slide-detail2.jfif"
-                        alt=""
-                        className="slide-bar__detail-img"
-                      />
-                    </div>
+    <Router>
+      <div className="home-page">
+        <div className="main">
+          <div className="main__body">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-xl-2 col-lg-3">
+                  <Menu />
+                </div>
+                <div className="col-xl-10 col-lg-9">
+                  <div className="main__body__content">
+                    <Switch>{showRouter(routersSub)}</Switch>
                   </div>
                 </div>
               </div>
@@ -43,28 +25,21 @@ function HomePage(props) {
           </div>
         </div>
       </div>
-      <div class="--container">
-        <div class="grid wide">
-          <ProductDiscountList />
-          <div className="category">
-            <h2 className="category__title">DANH MỤC</h2>
-            <div className="category__container">
-              <Category />
-            </div>
-          </div>
-
-          <div class="product-list">
-            <div class="product-list__header">
-              <h2 class="product-list__header-title">GỢI Ý HÔM NAY</h2>
-            </div>
-            <div class="product-list__body">
-              <ProductList />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </Router>
   );
 }
 
-export default HomePage;
+function showRouter(routers) {
+  let result = null;
+  if (routers.length > 0) {
+    result = routers.map((route, index) => {
+      return (
+        <Route key={index} path={route.path} exact={route.exact}>
+          {route.main}
+        </Route>
+      );
+    });
+  }
+  return result;
+}
+export default Home;

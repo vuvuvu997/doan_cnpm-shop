@@ -37,6 +37,7 @@ function InputField(props) {
         disabled={disabled}
         placeholder={placeholder}
         invalid={showError}
+        autoComplete="on"
       />
 
       <ErrorMessage name={name} component={FormFeedback} />

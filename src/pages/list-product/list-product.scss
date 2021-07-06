@@ -1,0 +1,17 @@
+.list-product-page {
+  padding: 12px;
+  #search-product-form {
+    .form-group {
+      margin-right: 12px;
+      margin-bottom: 0;
+      min-width: 250px;
+    }
+    input {
+      margin-bottom: 0;
+    }
+    button {
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+  }
+}

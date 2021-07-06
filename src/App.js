@@ -1,48 +1,46 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { userLogin, getProfileUser } from "./actions/userAction";
-import Footer from "./components/footer";
+import * as actions from "./actions/shop";
+import { shopApi } from "./api/shopApi";
 import Header from "./components/header";
-import RegisterPage from "./pages/Register";
-import LoginPage from "./pages/Login";
+import "./main.scss";
 import routers from "./routers";
 
 function App() {
-  const popupForm = useSelector((state) => state.popupForm);
-  const dispatch = useDispatch();
+  const token = localStorage.getItem("authentication_token_shop");
+  // console.log(token);
 
-  useEffect(() => {
-    const token = localStorage.getItem("authentication_token");
-    if (token) {
-      const inforUserFetch = async () => {
-        const myConfig = {
-          headers: { Authorization: token },
-        };
-        try {
-          const response = await axios.get(
-            "https://your-ecommerce.herokuapp.com/profile",
-            myConfig
-          );
-          dispatch(getProfileUser(response.data));
-          dispatch(userLogin({ username: response.data.email }));
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      inforUserFetch();
-    }
-  }, [dispatch]);
+  // const infoShop = useSelector((state) => state.shop);
 
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   // console.log(token);
+  //   if (token) {
+  //     const fetchPropertiesShopApi = async () => {
+  //       try {
+  //         const response = await shopApi.getShopUser();
+  //         // console.log(response);
+  //         dispatch(actions.getProfileShop(response));
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
+  //     fetchPropertiesShopApi();
+  //   }
+  // }, [dispatch, token]);
   return (
     <Router>
       <Header />
+      {!token ? <Redirect to="/login" /> : <Redirect to="/" />}
       <Switch>{showRouter(routers)}</Switch>
-      <Footer />
-      {popupForm.isPopupLogin && <LoginPage />}
-      {popupForm.isPopupRes && <RegisterPage />}
       <ToastContainer />
     </Router>
   );

@@ -1,0 +1,18 @@
+@import "./../../global.scss";
+.order-page {
+  padding: 12px;
+  background-color: #fff;
+  @include border();
+  &__action {
+    li {
+      margin-right: 12px;
+      button {
+        padding: 8px 12px;
+        background-color: #fff;
+        color: $primary-color;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+    }
+  }
+}

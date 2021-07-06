@@ -1,0 +1,11 @@
+@import "./global.scss";
+.main {
+  &__body {
+    margin-top: 65px;
+    &__content {
+      background-color: #f6f6f6;
+      min-height: 100vh;
+      margin-left: 20px;
+    }
+  }
+}

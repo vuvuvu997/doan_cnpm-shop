@@ -1,0 +1,1 @@
+export const GET_PROFILE_SHOP = "GET_PROFILE_SHOP";

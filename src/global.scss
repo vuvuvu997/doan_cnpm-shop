@@ -1,0 +1,28 @@
+$primary-color: hsl(211, 74%, 60%);
+
+@mixin flex-box($justify: flex-start, $align: center, $wrap: wrap) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+@mixin square-box($width) {
+  width: $width;
+  height: $width;
+}
+
+@mixin transform($left: 50%, $translateX: -50%, $top: 50%, $translateY: -50%) {
+  left: $left;
+  transform: translateX($translateX);
+  top: $top;
+  transform: translateY($translateY);
+}
+
+@mixin transition() {
+  transition: all 0.4s ease-in-out;
+}
+
+@mixin border() {
+  border: 1px solid #dfdfdf;
+}

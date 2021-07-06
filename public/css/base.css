@@ -6,7 +6,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 
 * {
@@ -24,6 +24,10 @@ a {
   text-decoration: none !important;
 }
 
+img {
+  width: 100%;
+}
+
 .mt-50 {
   margin-top: 50px;
 }
@@ -36,6 +40,52 @@ a {
   margin-top: 150px;
 }
 
+.pd-12 {
+  padding: 12px;
+}
+
+.text-primary {
+  color: var(--colorPrimary);
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.text-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text-clamp--1 {
+  -webkit-line-clamp: 1;
+}
+.text-clamp--2 {
+  -webkit-line-clamp: 2;
+}
+.text-clamp--5 {
+  -webkit-line-clamp: 5;
+}
+
+.invalid {
+  color: red !important;
+}
+.invalid .form-control {
+  border-color: red !important;
+}
 .form-group input[type="text"],
 input[type="password"] {
   width: 100%;
