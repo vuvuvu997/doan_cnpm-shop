@@ -1,7 +1,7 @@
 import AddProductPage from "./pages/AddProduct";
-import Introduce from "./pages/Introduce";
+import Introduce from "./pages/IntroducePage";
 import ListProductPage from "./pages/ListProduct";
-import Order from "./pages/Order";
+import Order from "./pages/OrderPage";
 import ProfileShop from "./pages/ProfileShop";
 const routes = [
   {
