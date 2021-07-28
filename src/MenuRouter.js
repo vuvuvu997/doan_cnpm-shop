@@ -11,6 +11,7 @@ const routes = [
       return <Introduce />;
     },
   },
+
   {
     path: "/portal/sale/order",
     exact: false,
