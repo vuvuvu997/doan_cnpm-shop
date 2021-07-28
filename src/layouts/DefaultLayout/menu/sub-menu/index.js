@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
+import "./style.scss";
 
 function SubMenu(props) {
   const { list, icon, name, id } = props;

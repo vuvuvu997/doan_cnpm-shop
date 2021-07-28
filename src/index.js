@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import storeConfigure from "./redux/storeConfigure";
-
+import "antd/dist/antd.css";
 const store = storeConfigure();
 ReactDOM.render(
   <Provider store={store}>

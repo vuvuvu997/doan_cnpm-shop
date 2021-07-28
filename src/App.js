@@ -1,63 +1,59 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Router, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import * as actions from "./actions/shop";
-import { shopApi } from "./api/shopApi";
+import { getProfileShop } from "./actions/shop";
 import Header from "./components/header";
+import DefaultLayout from "./layouts/DefaultLayout";
+import NoMenuLayout from "./layouts/NoMenuLayout";
 import "./main.scss";
-import routers from "./routers";
-
+import routersMenu from "./MenuRouter";
+import routersNoMenu from "./NoMenuRouter";
+import history from "./utils/History";
 function App() {
-  const token = localStorage.getItem("authentication_token_shop");
-  // console.log(token);
+  const token = sessionStorage.getItem("authentication_token_shop");
+  const dispatch = useDispatch();
 
-  // const infoShop = useSelector((state) => state.shop);
+  useEffect(() => {
+    token && dispatch(getProfileShop());
+  }, [dispatch, token]);
 
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   // console.log(token);
-  //   if (token) {
-  //     const fetchPropertiesShopApi = async () => {
-  //       try {
-  //         const response = await shopApi.getShopUser();
-  //         // console.log(response);
-  //         dispatch(actions.getProfileShop(response));
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     };
-  //     fetchPropertiesShopApi();
-  //   }
-  // }, [dispatch, token]);
   return (
-    <Router>
+    <Router history={history}>
       <Header />
-      {!token ? <Redirect to="/login" /> : <Redirect to="/" />}
-      <Switch>{showRouter(routers)}</Switch>
+      <Switch>
+        {!token && history.push("/login")}
+        {showRouterDefault(routersMenu)}
+        {showRouterNoMenu(routersNoMenu)}
+      </Switch>
       <ToastContainer />
     </Router>
   );
 }
 
-function showRouter(routers) {
-  let result = null;
-  if (routers.length > 0) {
-    result = routers.map((route, index) => {
-      return (
-        <Route key={index} path={route.path} exact={route.exact}>
-          {route.main}
-        </Route>
-      );
-    });
-  }
-  return result;
-}
+const showRouterDefault = (routers) => {
+  return routers.map((router) => {
+    return (
+      <DefaultLayout
+        key={router.path}
+        path={router.path}
+        component={router.main}
+        exact={router.exact}
+      />
+    );
+  });
+};
 
+const showRouterNoMenu = (routers) => {
+  return routers.map((router) => {
+    return (
+      <NoMenuLayout
+        key={router.path}
+        path={router.path}
+        component={router.main}
+        exact={router.exact}
+      />
+    );
+  });
+};
 export default App;

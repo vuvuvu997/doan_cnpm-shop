@@ -32,14 +32,14 @@ function ProfileShop(props) {
                 <span>57%</span>
               </li>
               <li>
-                <i class="far fa-clock"></i>Thời gian phản hồi{" "}
+                <i className="far fa-clock"></i>Thời gian phản hồi{" "}
                 <span>Trong vòng vài tiếng</span>
               </li>
               <li>
-                <i class="far fa-star"></i>Đánh Giá Shop <span>0</span>
+                <i className="far fa-star"></i>Đánh Giá Shop <span>0</span>
               </li>
               <li>
-                <i class="fas fa-book"></i>Tỉ lệ đơn không thành công{" "}
+                <i className="fas fa-book"></i>Tỉ lệ đơn không thành công{" "}
                 <span>0,00%</span>
               </li>
             </ul>

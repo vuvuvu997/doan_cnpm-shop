@@ -45,7 +45,13 @@ function ListProduct(props) {
             </th>
           </tr>
         </thead>
-        <tbody>{showProductList(listProduct)}</tbody>
+        <tbody>
+          {listProduct.length === 0 ? (
+            <p>No have product</p>
+          ) : (
+            showProductList(listProduct)
+          )}
+        </tbody>
       </table>
     </div>
   );

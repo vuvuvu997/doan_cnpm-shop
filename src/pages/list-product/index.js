@@ -38,7 +38,7 @@ function ListProductPage(props) {
             Tất cả
           </button>
         </li>
-        <li class="nav-item">
+        <li className="nav-item">
           <button
             className="btn btn-primary nav-link"
             data-toggle="tab"

@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct, editProduct } from "../../actions/product";
 import Validator from "../../helpers/validator";
 import "./style.scss";
+import { css } from "@emotion/react";
+import ClipLoader from "react-spinners/HashLoader";
 
+const override = css`
+  display: block;
+  margin-right: 12px;
+  border-color: red;
+  float: left;
+`;
 function AddProductForm(props) {
   const { data, onCloseModalEdit } = props;
-
+  const shop = useSelector((state) => state.shop);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [infoProduct, setInfoProduct] = useState({
     id: "",
@@ -47,9 +56,9 @@ function AddProductForm(props) {
   const handelSubmit = async (e) => {
     e.preventDefault();
     const dataForm = new FormData(e.target);
-    dataForm.append("shop_id", 5);
+    dataForm.append("shop_id", shop.id);
     dataForm.append("rating", 5);
-
+    setLoading(true);
     if (data) {
       dispatch(editProduct(dataForm, data.id));
       onCloseModalEdit();
@@ -211,6 +220,12 @@ function AddProductForm(props) {
         </div>
         <div className="form-group text-center">
           <button type="submit" className="btn btn-primary">
+            <ClipLoader
+              color={"#fff"}
+              loading={loading}
+              css={override}
+              size={24}
+            />
             {data ? "Sửa thông tin" : "Thêm sản phẩm"}
           </button>
         </div>

@@ -27,7 +27,7 @@ axiosClient.interceptors.response.use(
 );
 
 function authHeaders() {
-  const token = localStorage.getItem("authentication_token_shop");
+  const token = sessionStorage.getItem("authentication_token_shop");
   const headers = {
     Authorization: token,
     Accept: "application/json",

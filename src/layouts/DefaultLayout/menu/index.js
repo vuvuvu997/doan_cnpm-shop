@@ -1,7 +1,7 @@
 import React from "react";
-import SubMenu from "../sub-menu";
+import SubMenu from "./sub-menu";
 import "./menu.scss";
-import * as data from "./../../utils/data";
+import * as data from "../../../utils/data";
 
 function showSubMenu(list) {
   let result = null;

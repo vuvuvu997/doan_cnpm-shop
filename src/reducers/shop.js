@@ -1,33 +1,29 @@
 import * as ActionTypes from "./../constants/shop";
 let initialState = {
-  id: "",
-  nameShop: "",
-  productType: "",
-  address: "",
-  timeEstablish: "",
-  phone: "",
-  email: "",
-  owner: "",
+  isLogin: false,
 };
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.GET_PROFILE_SHOP:
-      const { data } = action.payload;
-      const newState = {
+    case ActionTypes.LOGIN_SUCCESS:
+      return { isLogin: true, email: action.payload.data };
+
+    case ActionTypes.GET_PROFILE_SHOP_SUCCESS:
+      return { ...state, isLogin: true, ...action.payload.data };
+
+    case ActionTypes.CREATE_SHOP_SUCCESS:
+      return {
         ...state,
-        id: data.id,
-        nameShop: data.name_shop,
-        productType: data.product_type,
-        address: data.address,
-        timeEstablish: data.time_establish,
-        phone: data.phone,
-        email: data.email,
-        owner: data.owner,
+        ...action.payload.data,
       };
-      return newState;
+
+    case ActionTypes.LOGOUT:
+      return {
+        isLogin: false,
+      };
+
     default:
-      return { ...state };
+      return state;
   }
 };
 

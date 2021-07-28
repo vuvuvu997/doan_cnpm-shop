@@ -1,1 +1,13 @@
 export const GET_PROFILE_SHOP = "GET_PROFILE_SHOP";
+export const GET_PROFILE_SHOP_SUCCESS = "GET_PROFILE_SHOP_SUCCESS";
+
+export const LOGIN = "LOGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+
+export const CREATE_SHOP = "CREATE_SHOP";
+export const CREATE_SHOP_SUCCESS = "CREATE_SHOP_SUCCESS";
+
+export const LOGOUT = "LOGOUT";
+
+export const UPDATE_SHOP = "UPDATE_SHOP";
+export const UPDATE_SHOP_SUCCESS = "UPDATE_SHOP_SUCCESS";

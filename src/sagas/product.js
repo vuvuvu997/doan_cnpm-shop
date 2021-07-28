@@ -33,7 +33,6 @@ function* getProductSaga({ payload }) {
         queryString.stringify(filter)
       );
     }
-    console.log(res);
     yield put(getProductSuccess(res.data.products));
   } catch (error) {
     yield put(getProductFail(error));

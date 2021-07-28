@@ -41,7 +41,7 @@ function ListProductItem(props) {
             className="btn btn--edit"
             onClick={handleShowEdit}
           >
-            <i class="far fa-edit"></i>
+            <i className="far fa-edit"></i>
           </Button>
           <Modal
             className="product-item__modal-dialog"
@@ -61,7 +61,7 @@ function ListProductItem(props) {
             className="btn btn--delete"
             onClick={handleShowDel}
           >
-            <i class="far fa-trash-alt"></i>
+            <i className="far fa-trash-alt"></i>
           </Button>
 
           <Modal show={showDel} onHide={handleCloseDel}>
@@ -69,7 +69,7 @@ function ListProductItem(props) {
               <Modal.Title>Xóa sản phẩm</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div class="alert alert-danger" role="alert">
+              <div className="alert alert-danger" role="alert">
                 Bạn có muốn xóa sản phẩm này không?
               </div>
               <p>{data.name}</p>

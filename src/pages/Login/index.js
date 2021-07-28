@@ -1,47 +1,7 @@
-import axios from "axios";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { shopApi } from "../../api/shopApi";
-import LoginForm from "../../components/login-form";
-import * as actions from "./../../actions/shop";
+import LoginForm from "./login-form";
 import "./login.scss";
 function LoginPage() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const initialValues = {
-    username: "",
-    password: "",
-  };
-  const onSubmit = async (value) => {
-    const data = { username: value.username, password: value.password };
-    const response = await shopApi.login(data);
-    if (response.authentication_token) {
-      localStorage.setItem(
-        "authentication_token_shop",
-        response.authentication_token
-      );
-      try {
-        // console.log(response);
-
-        const res = await axios({
-          method: "GET",
-          url: "https://your-ecommerce.herokuapp.com/shops",
-          headers: {
-            Authorization: response.authentication_token,
-          },
-        });
-        dispatch(actions.getProfileShop(res.data));
-        if (res.data.message) {
-          history.push("/shop/create");
-        } else {
-          history.push("/");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
   return (
     <div className="login-page">
       <div className="container">
@@ -60,8 +20,8 @@ function LoginPage() {
           </div>
           <div className="col-xl-5">
             <div className="login-page__right">
-              <h1>Đăng nhập vào Kênh Người Bán</h1>
-              <LoginForm initialValues={initialValues} onSubmit={onSubmit} />
+              <h3>Đăng nhập vào Kênh Người Bán</h3>
+              <LoginForm />
             </div>
           </div>
         </div>

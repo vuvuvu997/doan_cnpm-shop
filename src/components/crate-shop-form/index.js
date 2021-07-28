@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { shopApi } from "../../api/shopApi";
+import { createShopSuccess, updateShopSuccess } from "../../actions/shop";
+import { createShop, updateShop } from "../../api/shopApi";
 import Validator from "../../helpers/validator";
+import { message } from "antd";
 import "./style.scss";
 
 function CreateShopForm(props) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const infoShop = useSelector((state) => state.shop);
   const [profile, setProfile] = useState({
     id: "",
@@ -37,9 +40,9 @@ function CreateShopForm(props) {
     if (infoShop) {
       setProfile({
         id: infoShop.id,
-        name_shop: infoShop.nameShop,
+        name_shop: infoShop.name_shop,
         address: infoShop.address,
-        product_type: infoShop.productType,
+        product_type: infoShop.product_type,
         phone: infoShop.phone,
         email: infoShop.email,
       });
@@ -51,17 +54,25 @@ function CreateShopForm(props) {
     const data = new FormData(e.target);
     if (profile.id) {
       try {
-        const response = await shopApi.updateShop(data);
-        console.log(response);
+        const response = await updateShop(data);
+        if (response.status === 200) {
+          message.success("Update success");
+          dispatch(updateShopSuccess(response.data));
+        } else {
+          message.warning("Update error");
+        }
       } catch (error) {
         console.log(error);
       }
     } else {
       try {
-        const response = await shopApi.createShop(data);
-        console.log(response);
+        const response = await createShop(data);
         if (response.status === 201) {
+          dispatch(createShopSuccess(response.data));
+          message.success("Create shop success");
           history.push("/");
+        } else {
+          message.warning("Occur error!");
         }
       } catch (error) {
         console.log(error);
@@ -72,7 +83,7 @@ function CreateShopForm(props) {
     <div className="style-form create-shop-form">
       <form onSubmit={handleSubmit} id="create-shop-form">
         <div className="form-group ">
-          <label for="name-shop">Tên Shop</label>
+          <label htmlFor="name-shop">Tên Shop</label>
           <div className="form-group-container">
             <input
               className="form-control"
@@ -87,8 +98,8 @@ function CreateShopForm(props) {
             <span className="form-message"></span>
           </div>
         </div>
-        <div class="form-group">
-          <label for="category">Sản phẩm kinh doanh</label>
+        <div className="form-group">
+          <label htmlFor="category">Sản phẩm kinh doanh</label>
           <div className="form-group-container">
             <select
               className="form-control"
@@ -138,7 +149,7 @@ function CreateShopForm(props) {
           </div>
         </div>
         <div className="form-group">
-          <label for="address">Địa chỉ:</label>
+          <label htmlFor="address">Địa chỉ:</label>
           <div className="form-group-container">
             <input
               className="form-control"
@@ -154,7 +165,7 @@ function CreateShopForm(props) {
           </div>
         </div>
         <div className="form-group">
-          <label for="phone-number">Số điện thoại:</label>
+          <label htmlFor="phone-number">Số điện thoại:</label>
           <div className="form-group-container">
             <input
               className="form-control"
@@ -170,7 +181,7 @@ function CreateShopForm(props) {
           </div>
         </div>
         <div className="form-group">
-          <label for="email-shop">Email:</label>
+          <label htmlFor="email-shop">Email:</label>
           <div className="form-group-container">
             <input
               className="form-control"
@@ -187,7 +198,7 @@ function CreateShopForm(props) {
         </div>
         <div className="form-group text-center">
           <button type="submit" className="btn btn-primary">
-            {infoShop ? "Update" : "Tạo shop"}
+            {infoShop.name_shop ? "Update" : "Tạo shop"}
           </button>
         </div>
       </form>
