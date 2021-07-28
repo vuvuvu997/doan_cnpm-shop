@@ -18,7 +18,9 @@ function Header(props) {
   return (
     <div className="header d-flex justify-content-space-between align-items-center ">
       <div className="header__left">
-        <span className="ext-primary">SHOP ECO</span>
+        <Link to={"/"} className="header__left__title">
+          SHOP ECO
+        </Link>
         <span>Kênh Người Bán</span>
       </div>
       <div className="header__right">

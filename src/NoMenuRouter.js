@@ -1,5 +1,6 @@
-import CreateShopPage from "./pages/create-shop";
-import LoginPage from "./pages/login";
+import CreateShopPage from "./pages/CreateShop";
+import LoginPage from "./pages/LoginPage";
+
 const routes = [
   {
     path: "/login",

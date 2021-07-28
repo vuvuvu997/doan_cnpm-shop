@@ -19,7 +19,7 @@ function showListItem(list, status) {
 }
 function ListOrderItem(props) {
   const { data } = props;
-  console.log(data);
+
   return (
     <tbody>
       <tr>

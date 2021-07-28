@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import history from "../../utils/History";
+import ChartClickEvents from "../../components/chart";
 import "./introduce.scss";
-import ChartClickEvents from "./../../components/chart";
 function Introduce(props) {
+  useEffect(() => {
+    const token = sessionStorage.getItem("authentication_token_shop");
+    !token && history.push("/login");
+  }, []);
+
   return (
     <div className="introduce-page">
       <section className="todo-list">

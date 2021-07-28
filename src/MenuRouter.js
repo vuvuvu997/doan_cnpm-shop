@@ -1,9 +1,8 @@
-import AddProductPage from "./pages/add-product";
-import Introduce from "./pages/introduce";
-import ListProductPage from "./pages/list-product";
-import Order from "./pages/order";
-import ProfileShop from "./pages/profile-shop";
-import Review from "./pages/reviews";
+import AddProductPage from "./pages/AddProduct";
+import Introduce from "./pages/Introduce";
+import ListProductPage from "./pages/ListProduct";
+import Order from "./pages/Order";
+import ProfileShop from "./pages/ProfileShop";
 const routes = [
   {
     path: "/",
@@ -38,13 +37,6 @@ const routes = [
     exact: false,
     main: () => {
       return <ProfileShop />;
-    },
-  },
-  {
-    path: "/portal/settings/shop/rating",
-    exact: false,
-    main: () => {
-      return <Review />;
     },
   },
 ];
