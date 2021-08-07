@@ -17,6 +17,9 @@ const myReducer = (state = initialState, action) => {
         ...action.payload.data,
       };
 
+    case ActionTypes.UPDATE_SHOP_SUCCESS:
+      return { ...state, ...action.payload.data };
+
     case ActionTypes.LOGOUT:
       return {
         isLogin: false,

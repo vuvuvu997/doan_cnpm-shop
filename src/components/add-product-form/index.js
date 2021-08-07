@@ -48,14 +48,16 @@ function AddProductForm(props) {
         price: data.price,
         count: data.count,
         description: data.name,
-        category: data.category,
+        // category_name: data.category,
       });
     }
   }, [dispatch, data]);
 
+  console.log(data);
   const handelSubmit = async (e) => {
     e.preventDefault();
     const dataForm = new FormData(e.target);
+    console.log(Object.entries(dataForm));
     dataForm.append("shop_id", shop.id);
     dataForm.append("rating", 5);
     setLoading(true);
@@ -107,7 +109,7 @@ function AddProductForm(props) {
                 className="form-control"
                 name="category_name"
                 id="category"
-                value={infoProduct.category_name}
+                //value={infoProduct.category_name}
               >
                 <option value="Thời Trang Nam">Thời Trang Nam</option>
                 <option value="Thời Trang Nữ">Thời Trang Nữ</option>

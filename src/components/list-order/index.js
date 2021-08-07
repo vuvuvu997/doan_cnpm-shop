@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchOrderListApi } from "../../api/order";
+import Loading from "../loading";
 import ListOrderItem from "./../../components/list-order-item";
 
 function showListOrder(list) {
@@ -49,11 +50,15 @@ function ListOrder(props) {
         </thead>
       </table>
       <table className="table table-hover">
-        {listOrder
-          ? listOrder.length === 0
-            ? "No order list"
-            : showListOrder(listOrder)
-          : "Loading"}
+        {listOrder ? (
+          listOrder.length === 0 ? (
+            "No order list"
+          ) : (
+            showListOrder(listOrder)
+          )
+        ) : (
+          <Loading />
+        )}
       </table>
     </div>
   );

@@ -6,6 +6,7 @@ import {
 } from "../actions/shop";
 import { getProfileShopApi, login } from "../api/shopApi";
 import { GET_PROFILE_SHOP, LOGIN } from "../constants/shop";
+import { toastError } from "../helpers/toastMessage";
 import history from "../utils/History";
 
 function* loginSaga({ payload }) {
@@ -26,6 +27,7 @@ function* loginSaga({ payload }) {
     }
   } catch (error) {
     console.log(error);
+    toastError("Login failure!");
   }
 }
 
