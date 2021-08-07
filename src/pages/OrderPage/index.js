@@ -24,15 +24,6 @@ function Order(props) {
             Chờ xác nhận
           </button>
         </li>
-        <li className="nav-item">
-          <button
-            className="btn btn-primary nav-link"
-            data-toggle="tab"
-            href="#menu2"
-          >
-            Chờ lấy hàng
-          </button>
-        </li>
       </ul>
 
       <div className="tab-content">
@@ -41,10 +32,6 @@ function Order(props) {
           <ListOrder />
         </div>
         <div id="menu1" className="container tab-pane fade">
-          <h1>Đơn hàng</h1>
-          <ListOrder />
-        </div>
-        <div id="menu2" className="container tab-pane fade">
           <h1>Đơn hàng</h1>
           <ListOrder />
         </div>

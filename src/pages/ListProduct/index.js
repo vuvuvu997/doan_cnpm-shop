@@ -72,6 +72,7 @@ function ListProductPage(props) {
                 <input
                   onChange={handleChangeKeySearch}
                   type="text"
+                  placeholder="Search for products..."
                   name="keySearch"
                   value={keySearch}
                 />
@@ -86,10 +87,10 @@ function ListProductPage(props) {
           </div>
         </div>
         <div id="menu1" className="container tab-pane fade">
-          <h3>Update soon!</h3>
+          <h3>No have product! </h3>
         </div>
         <div id="menu2" className="container tab-pane fade">
-          <h3>Update soon!</h3>
+          <h3>No have product!</h3>
         </div>
       </div>
     </div>
