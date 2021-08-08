@@ -16,13 +16,14 @@ function AddProductForm(props) {
   const { data, onCloseModalEdit } = props;
   const shop = useSelector((state) => state.shop);
   const [loading, setLoading] = useState(false);
+  const [link_image, setLink_image] = useState();
   const dispatch = useDispatch();
   const [infoProduct, setInfoProduct] = useState({
     id: "",
     name: "",
     description: "",
     price: 0,
-    category_name: "",
+    category: "",
     count: 0,
   });
 
@@ -48,16 +49,14 @@ function AddProductForm(props) {
         price: data.price,
         count: data.count,
         description: data.name,
-        // category_name: data.category,
+        category_name: data.category,
       });
     }
   }, [dispatch, data]);
 
-  console.log(data);
   const handelSubmit = async (e) => {
     e.preventDefault();
     const dataForm = new FormData(e.target);
-    console.log(Object.entries(dataForm));
     dataForm.append("shop_id", shop.id);
     dataForm.append("rating", 5);
     setLoading(true);
@@ -103,13 +102,19 @@ function AddProductForm(props) {
           ""
         ) : (
           <div className="form-group d-flex justify-content-space-between align-items-center">
-            <label htmlFor="category">Danh mục sản phẩm</label>
+            <label htmlFor="category_name">Danh mục sản phẩm</label>
             <div className="form-group-container">
               <select
                 className="form-control"
                 name="category_name"
-                id="category"
-                //value={infoProduct.category_name}
+                id="category_name"
+                value={infoProduct.category_name}
+                onChange={(e) =>
+                  setInfoProduct({
+                    ...infoProduct,
+                    category_name: e.target.value,
+                  })
+                }
               >
                 <option value="Thời Trang Nam">Thời Trang Nam</option>
                 <option value="Thời Trang Nữ">Thời Trang Nữ</option>
@@ -209,16 +214,52 @@ function AddProductForm(props) {
           </div>
         </div>
         <div className="form-group d-flex justify-content-space-between align-items-center">
-          <label htmlFor="image">Hình ảnh</label>
+          <p style={{ width: "200px", height: "100%" }}>Hình ảnh</p>
+          <label
+            style={{
+              width: "300px",
+              height: "100%",
+              cursor: "pointer",
+              color: "#017fff",
+              marginLeft: "50px",
+            }}
+            htmlFor="image"
+          >
+            <i style={{ marginRight: "12px" }} className="far fa-images"></i>
+            Click here
+          </label>
           <div className="form-group-container">
             <input
+              style={{ display: "none" }}
               className="form-control-file"
               type="file"
               id="image"
               name="link_image"
+              accept=".png,.jpeg,.jpg"
+              onChange={(e) => setLink_image(e.target.files[0])}
             />
             <span className="form-message"></span>
           </div>
+          {data?.link_image && !link_image ? (
+            <div className="formGroup__container">
+              <img
+                className="formGroup__container__img formGroup__container__img--frofile"
+                src={data.link_image}
+                alt=""
+              />
+            </div>
+          ) : (
+            ""
+          )}
+          {link_image && (
+            <div className="formGroup__container">
+              <img
+                className="formGroup__container__img formGroup__container__img--frofile"
+                src={URL.createObjectURL(link_image)}
+                alt=""
+              />
+            </div>
+          )}
         </div>
         <div className="form-group text-center">
           <button type="submit" className="btn btn-primary">

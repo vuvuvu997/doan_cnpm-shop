@@ -28,7 +28,11 @@ function ListProductItem(props) {
     <tr className="product-item">
       <td style={{ width: "35%" }}>{data.name}</td>
       <td className="product-item__img" style={{ width: "15%" }}>
-        <img src={data.link_image} alt={data.name} />
+        <img
+          style={{ objectFit: "cover" }}
+          src={data.link_image}
+          alt={data.name}
+        />
       </td>
       <td style={{ width: "10%" }}>{formatter.format(data.price)}</td>
       <td style={{ width: "10%" }}>{data.rating}</td>
