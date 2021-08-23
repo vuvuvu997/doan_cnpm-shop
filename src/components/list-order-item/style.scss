@@ -1,0 +1,25 @@
+.listOrderItem {
+  margin-bottom: 12px;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(234, 247, 255);
+  }
+
+  td,
+  th {
+    text-align: left;
+    padding: 8px;
+  }
+
+  &__info {
+    background-color: #dddddd;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

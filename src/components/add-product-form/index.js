@@ -25,6 +25,7 @@ function AddProductForm(props) {
     price: 0,
     category: "",
     count: 0,
+    discount: 0,
   });
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function AddProductForm(props) {
         Validator.isMinLeng("#description", 10, "Tên mô tả quá ngắn"),
         Validator.isRequired("#price"),
         Validator.isRequired("#count"),
-        Validator.isRequired("#image"),
+        Validator.isRequired("#discount"),
       ],
     });
 
@@ -50,6 +51,7 @@ function AddProductForm(props) {
         count: data.count,
         description: data.name,
         category_name: data.category,
+        discount: data.discount,
       });
     }
   }, [dispatch, data]);
@@ -58,7 +60,6 @@ function AddProductForm(props) {
     e.preventDefault();
     const dataForm = new FormData(e.target);
     dataForm.append("shop_id", shop.id);
-    dataForm.append("rating", 5);
     setLoading(true);
     if (data) {
       dispatch(editProduct(dataForm, data.id));
@@ -72,6 +73,7 @@ function AddProductForm(props) {
         price: 0,
         category_name: "",
         count: 0,
+        discount: "",
       });
     }
   };
@@ -176,7 +178,7 @@ function AddProductForm(props) {
           </div>
         </div>
         <div className="form-group d-flex justify-content-space-between align-items-center">
-          <label htmlFor="price">Gía sản phẩm</label>
+          <label htmlFor="price">Gía gốc sản phẩm </label>
           <div className="form-group-container">
             <input
               className="form-control"
@@ -188,6 +190,25 @@ function AddProductForm(props) {
                 setInfoProduct({
                   ...infoProduct,
                   price: e.target.value,
+                })
+              }
+            />
+            <span className="form-message"></span>
+          </div>
+        </div>
+        <div className="form-group d-flex justify-content-space-between align-items-center">
+          <label htmlFor="discount">Số tiền giảm</label>
+          <div className="form-group-container">
+            <input
+              className="form-control"
+              type="number"
+              id="discount"
+              name="discount"
+              value={infoProduct.discount}
+              onChange={(e) =>
+                setInfoProduct({
+                  ...infoProduct,
+                  discount: e.target.value,
                 })
               }
             />

@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchOrderListApi } from "../../api/order";
 import ListOrder from "../../components/list-order";
 import "./order.scss";
 
 function Order(props) {
+  const [listOrderAll, setListOrderAll] = useState();
+  const [listOrderWait, setListOrderWait] = useState();
+  const [listOrderConfirm, setListOrderConfirm] = useState();
+
+  useEffect(() => {
+    const getListOrder = async () => {
+      try {
+        const response = await fetchOrderListApi();
+        setListOrderAll(response.orders);
+        setListOrderWait(
+          response.orders.filter((item) => item.order_status === "Chờ xác nhận")
+        );
+        setListOrderConfirm(
+          response.orders.filter((item) => item.order_status === "Đã giao")
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getListOrder();
+  }, []);
   return (
     <div className="order-page pd-12">
       <ul className="nav nav-tabs order-page__action">
@@ -19,9 +41,18 @@ function Order(props) {
           <button
             className="btn btn-primary nav-link"
             data-toggle="tab"
-            href="#menu1"
+            href="#choxacnhan"
           >
             Chờ xác nhận
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className="btn btn-primary nav-link"
+            data-toggle="tab"
+            href="#daxacnhan"
+          >
+            Đã xác nhận
           </button>
         </li>
       </ul>
@@ -29,11 +60,15 @@ function Order(props) {
       <div className="tab-content">
         <div id="home" className="container tab-pane active">
           <h1>Đơn hàng</h1>
-          <ListOrder />
+          {listOrderAll && <ListOrder data={listOrderAll} />}
         </div>
-        <div id="menu1" className="container tab-pane fade">
+        <div id="choxacnhan" className="container tab-pane fade">
           <h1>Đơn hàng</h1>
-          <ListOrder />
+          {listOrderWait && <ListOrder data={listOrderWait} />}
+        </div>
+        <div id="daxacnhan" className="container tab-pane fade">
+          <h1>Đơn hàng</h1>
+          {listOrderConfirm && <ListOrder data={listOrderConfirm} />}
         </div>
       </div>
     </div>

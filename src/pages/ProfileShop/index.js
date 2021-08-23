@@ -19,7 +19,7 @@ function ProfileShop(props) {
           <div className="profile-shop-page__bg pd-12">
             <div className="profile-shop-page__bg__img">
               <img
-                src="https://khoimoc.com/uploads/news/2019_04/mau-2-thiet-ke-shop-thoi-trang-hang-hieu-2.jpg"
+                src="https://lh3.googleusercontent.com/proxy/mKDqwNi_9Az5TVYx6RVfD6f_f9eH10mJHPGXc6Cv5ljFaP2JCW1d8OwiGcofynKQcCUD3q2KHcZnkGkGUgD5I5V2Yc7bVdhHvxhUwgscTxkOXJkpeyA"
                 alt="bg shop"
               />
             </div>

@@ -49,7 +49,7 @@ function ListProduct(props) {
           {listProduct.length === 0 ? (
             <p>No have product</p>
           ) : (
-            showProductList(listProduct)
+            showProductList(listProduct.reverse())
           )}
         </tbody>
       </table>

@@ -1,65 +1,55 @@
+import { message } from "antd";
 import React, { useEffect, useState } from "react";
-import { fetchOrderListApi } from "../../api/order";
+import { confirmOrderApi } from "../../api/order";
 import Loading from "../loading";
 import ListOrderItem from "./../../components/list-order-item";
 
-function showListOrder(list) {
-  let result = null;
-  if (list.length > 0) {
-    result = list.map((item, index) => {
-      return <ListOrderItem key={index} data={item} />;
-    });
-  }
-  return result;
-}
 function ListOrder(props) {
   const [listOrder, setListOrder] = useState();
 
   useEffect(() => {
-    const getListOrder = async () => {
-      try {
-        const response = await fetchOrderListApi();
-        setListOrder(response.orders);
-      } catch (error) {
-        console.log(error);
+    setListOrder(props.data);
+  }, [props]);
+
+  const handleConfirmOrder = async (id) => {
+    try {
+      const res = await confirmOrderApi(id);
+      if (res.status === 200) {
+        message.success("You confirmed success");
+        setListOrder((pre) => pre.filter((item) => item.id !== id));
       }
-    };
-    getListOrder();
-  }, []);
+    } catch (error) {}
+  };
+
   return (
     <div className="order-page__container">
       <table className="table table-hover">
         <thead>
           <tr>
-            <th style={{ width: "40%" }} scope="col">
-              Sản phẩm
-            </th>
-            <th style={{ width: "15%" }} scope="col">
-              Tổng Đơn hàng
-            </th>
-            <th style={{ width: "15%" }} scope="col">
-              Trạng thái
-            </th>
-            <th style={{ width: "15%" }} scope="col">
-              Vận chuyển
-            </th>
-            <th style={{ width: "15%" }} scope="col">
-              Thao tác
-            </th>
+            <th style={{ width: "5%" }}>ID</th>
+            <th style={{ width: "40%" }}>Product</th>
+            <th style={{ width: "20%" }}>Image</th>
+            <th style={{ width: "15%" }}>Price</th>
+            <th style={{ width: "20%" }}>Transport</th>
           </tr>
         </thead>
       </table>
-      <table className="table table-hover">
-        {listOrder ? (
-          listOrder.length === 0 ? (
-            "No order list"
-          ) : (
-            showListOrder(listOrder)
-          )
+
+      {listOrder ? (
+        listOrder.length === 0 ? (
+          "No order list"
         ) : (
-          <Loading />
-        )}
-      </table>
+          listOrder.map((item, index) => (
+            <ListOrderItem
+              key={index}
+              data={item}
+              handleConfirmOrder={handleConfirmOrder}
+            />
+          ))
+        )
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }

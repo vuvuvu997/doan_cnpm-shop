@@ -34,9 +34,11 @@ function ListProductItem(props) {
           alt={data.name}
         />
       </td>
-      <td style={{ width: "10%" }}>{formatter.format(data.price)}</td>
+      <td style={{ width: "10%" }}>
+        {formatter.format(data.price - data.discount)}
+      </td>
       <td style={{ width: "10%" }}>{data.rating}</td>
-      <td style={{ width: "10%" }}>12</td>
+      <td style={{ width: "10%" }}>{data.count_purchased}</td>
       <td style={{ width: "10%" }}>{data.count}</td>
       <td style={{ width: "10%" }}>
         <div className="product-item__modal-dialog">

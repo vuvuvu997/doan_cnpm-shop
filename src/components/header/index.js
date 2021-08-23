@@ -35,7 +35,7 @@ function Header(props) {
           <div className="header__right__author d-flex align-items-center">
             <div className="header__right__author__img">
               <img
-                src="https://khoimoc.com/uploads/news/2019_04/mau-2-thiet-ke-shop-thoi-trang-hang-hieu-2.jpg"
+                src="https://lh3.googleusercontent.com/proxy/mKDqwNi_9Az5TVYx6RVfD6f_f9eH10mJHPGXc6Cv5ljFaP2JCW1d8OwiGcofynKQcCUD3q2KHcZnkGkGUgD5I5V2Yc7bVdhHvxhUwgscTxkOXJkpeyA"
                 alt="img"
               />
             </div>
