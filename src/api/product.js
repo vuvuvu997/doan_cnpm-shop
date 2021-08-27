@@ -27,4 +27,8 @@ export const productApi = {
     const url = `/products/${id}`;
     return authGet(url);
   },
+  getProductBanApi: () => {
+    const url = "/shops/products/banned?page=0";
+    return authGet(url);
+  },
 };

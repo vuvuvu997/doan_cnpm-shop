@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getKeySearch } from "../../actions/contraol-actions";
 import { getProduct } from "../../actions/product";
 import ListProduct from "../../components/list-product";
+import ListProductBan from "../../components/list-product-ban";
+import ListProductRunOut from "../../components/list-product-run-out";
 import Loading from "../../components/loading";
 import "./list-product.scss";
 
@@ -87,10 +89,10 @@ function ListProductPage(props) {
           </div>
         </div>
         <div id="menu1" className="container tab-pane fade">
-          <h3>No have product! </h3>
+          {isLoading ? <Loading /> : <ListProductRunOut />}
         </div>
         <div id="menu2" className="container tab-pane fade">
-          <h3>No have product!</h3>
+          {isLoading ? <Loading /> : <ListProductBan />}
         </div>
       </div>
     </div>

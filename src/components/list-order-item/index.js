@@ -8,8 +8,6 @@ function ListOrderItem({ data, handleConfirmOrder }) {
     currency: "VND",
   });
 
-  console.log(data);
-
   const showListItem = (list, status) => {
     return list.map((item, index) => {
       return (
