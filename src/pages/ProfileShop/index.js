@@ -1,5 +1,6 @@
 import React from "react";
 import CreateShopForm from "./../../components/crate-shop-form";
+import ImageShop from "../../assets/images/imageshop.jpg";
 import "./style.scss";
 
 function ProfileShop(props) {
@@ -18,10 +19,7 @@ function ProfileShop(props) {
         <div className="col-4">
           <div className="profile-shop-page__bg pd-12">
             <div className="profile-shop-page__bg__img">
-              <img
-                src="https://lh3.googleusercontent.com/proxy/mKDqwNi_9Az5TVYx6RVfD6f_f9eH10mJHPGXc6Cv5ljFaP2JCW1d8OwiGcofynKQcCUD3q2KHcZnkGkGUgD5I5V2Yc7bVdhHvxhUwgscTxkOXJkpeyA"
-                alt="bg shop"
-              />
+              <img src={ImageShop} alt="bg shop" />
             </div>
             <ul>
               <li>

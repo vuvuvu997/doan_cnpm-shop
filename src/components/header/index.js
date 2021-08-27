@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import ImageShop from "../../assets/images/imageshop.jpg";
 import * as actions from "./../../actions/shop";
 import "./style.scss";
 
@@ -34,10 +35,7 @@ function Header(props) {
         ) : (
           <div className="header__right__author d-flex align-items-center">
             <div className="header__right__author__img">
-              <img
-                src="https://lh3.googleusercontent.com/proxy/mKDqwNi_9Az5TVYx6RVfD6f_f9eH10mJHPGXc6Cv5ljFaP2JCW1d8OwiGcofynKQcCUD3q2KHcZnkGkGUgD5I5V2Yc7bVdhHvxhUwgscTxkOXJkpeyA"
-                alt="img"
-              />
+              <img src={ImageShop} alt="img" />
             </div>
             <div className="header__right__author__name">
               {infoShop.name_shop ? infoShop.name_shop : infoShop.email}

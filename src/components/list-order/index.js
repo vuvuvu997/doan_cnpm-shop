@@ -6,7 +6,7 @@ import ListOrderItem from "./../../components/list-order-item";
 
 function ListOrder(props) {
   const [listOrder, setListOrder] = useState();
-
+  const { onUpdate } = props;
   useEffect(() => {
     setListOrder(props.data);
   }, [props]);
@@ -17,6 +17,7 @@ function ListOrder(props) {
       if (res.status === 200) {
         message.success("You confirmed success");
         setListOrder((pre) => pre.filter((item) => item.id !== id));
+        onUpdate();
       }
     } catch (error) {}
   };

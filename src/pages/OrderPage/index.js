@@ -7,7 +7,7 @@ function Order(props) {
   const [listOrderAll, setListOrderAll] = useState();
   const [listOrderWait, setListOrderWait] = useState();
   const [listOrderConfirm, setListOrderConfirm] = useState();
-
+  const [isUpdate, setIsUpdate] = useState(false);
   useEffect(() => {
     const getListOrder = async () => {
       try {
@@ -24,7 +24,12 @@ function Order(props) {
       }
     };
     getListOrder();
-  }, []);
+  }, [isUpdate]);
+
+  const onUpdate = () => {
+    setIsUpdate((pre) => !pre);
+  };
+
   return (
     <div className="order-page pd-12">
       <ul className="nav nav-tabs order-page__action">
@@ -60,15 +65,21 @@ function Order(props) {
       <div className="tab-content">
         <div id="home" className="container tab-pane active">
           <h1>Đơn hàng</h1>
-          {listOrderAll && <ListOrder data={listOrderAll} />}
+          {listOrderAll && (
+            <ListOrder onUpdate={onUpdate} data={listOrderAll} />
+          )}
         </div>
         <div id="choxacnhan" className="container tab-pane fade">
           <h1>Đơn hàng</h1>
-          {listOrderWait && <ListOrder data={listOrderWait} />}
+          {listOrderWait && (
+            <ListOrder onUpdate={onUpdate} data={listOrderWait} />
+          )}
         </div>
         <div id="daxacnhan" className="container tab-pane fade">
           <h1>Đơn hàng</h1>
-          {listOrderConfirm && <ListOrder data={listOrderConfirm} />}
+          {listOrderConfirm && (
+            <ListOrder onUpdate={onUpdate} data={listOrderConfirm} />
+          )}
         </div>
       </div>
     </div>

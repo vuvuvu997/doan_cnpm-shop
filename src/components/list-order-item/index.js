@@ -8,6 +8,8 @@ function ListOrderItem({ data, handleConfirmOrder }) {
     currency: "VND",
   });
 
+  console.log(data);
+
   const showListItem = (list, status) => {
     return list.map((item, index) => {
       return (
@@ -26,7 +28,10 @@ function ListOrderItem({ data, handleConfirmOrder }) {
               alt={item.name}
             />
           </td>
-          <td style={{ width: "15%" }}>{formatter.format(item.price)} </td>
+          <td style={{ width: "15%" }}>
+            {formatter.format(item.price)}{" "}
+            <strong>X {item.count_product_order}</strong>
+          </td>
           <td style={{ width: "20%" }}>Giao hàng trực tiếp</td>
         </tr>
       );
@@ -44,7 +49,7 @@ function ListOrderItem({ data, handleConfirmOrder }) {
           <div>
             <span>ID Đơn hàng: {data.id}</span>
             <span>Ngày đặt hàng: {data.created_at}</span>
-            <span>Total price: {data.total_price}</span>
+            <span>Total price: {formatter.format(data.total_price)}</span>
             <span>Status: {data.order_status}</span>
             {data.order_status === "Chờ xác nhận" && (
               <Popconfirm
