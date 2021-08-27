@@ -37,7 +37,9 @@ function ListProductItem(props) {
       <td style={{ width: "10%" }}>
         {formatter.format(data.price - data.discount)}
       </td>
-      <td style={{ width: "10%" }}>{data.rating}</td>
+      <td style={{ width: "10%" }}>
+        {Number.parseFloat(data.rating).toFixed(2)}
+      </td>
       <td style={{ width: "10%" }}>{data.count_purchased}</td>
       <td style={{ width: "10%" }}>{data.count}</td>
       <td style={{ width: "10%" }}>

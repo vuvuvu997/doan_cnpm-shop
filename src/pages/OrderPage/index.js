@@ -12,12 +12,13 @@ function Order(props) {
     const getListOrder = async () => {
       try {
         const response = await fetchOrderListApi();
-        setListOrderAll(response.orders);
+        const newOrder = response.orders.reverse();
+        setListOrderAll(newOrder);
         setListOrderWait(
-          response.orders.filter((item) => item.order_status === "Chờ xác nhận")
+          newOrder.filter((item) => item.order_status === "Chờ xác nhận")
         );
         setListOrderConfirm(
-          response.orders.filter((item) => item.order_status === "Đã giao")
+          newOrder.filter((item) => item.order_status === "Đã giao")
         );
       } catch (error) {
         console.log(error);
